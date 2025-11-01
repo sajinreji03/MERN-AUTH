@@ -1,0 +1,29 @@
+{
+  "name": "mern-auth",
+  "version": "1.0.0",
+  "description": "MERN authentication app with JWT-based login and registration, secure password hashing, protected routes, and a clean UI.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node backend/server.js"
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sajinreji03/MERN-AUTH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sajinreji03/MERN-AUTH/issues"
+  },
+  "homepage": "https://github.com/sajinreji03/MERN-AUTH#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2"
+  }
+}
