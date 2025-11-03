@@ -1,6 +1,8 @@
 import express from "express";
 import User from "../models/User.js";
 import { protect } from "../middleware/auth.js";
+import jwt from "jsonwebtoken";
+
 
 const router = express.Router(); //routes like register login...
 
@@ -22,10 +24,14 @@ router.post("/register", async (req, res) => {
             email,
             password,
         });
+         
+        const token = generateToken(user._id);
+
          res.status(201).json({
             id: user._id,
             username: user.username,
             email: user.email,
+            token,
          })
 
     } catch (error) {
@@ -45,10 +51,12 @@ router.post("/login", async (req, res) => {
         if(!user || !(await user.matchPassword(password))){
             return res.status(401).json({message: "Invalid credentials"});
         }
+        const token = generateToken(user._id);
         res.status(200).json({
             id: user._id,
             username: user.username,
             email: user.email,
+            token,
         });
 
     } catch (error) {
@@ -58,10 +66,16 @@ router.post("/login", async (req, res) => {
 
 //me
 router.get("/me", protect, async (req, res) => {    //this route will send back the currently logged in users info, normally in this case 
-                                              //  me router is not definied so we will use the protected and we will implemented in the middileware..
+                                              //  "me" router is not definied, so we will use the protected and we will implemented in the middileware..
     res.status(200).json(req.user);
+});
 
-})
-    
+//Generate JWT Token
+   const generateToken = (id) => {
+    return jwt.sign({id}, process.env.JWT_SECRET, { expiresIn: "30d" });
+}
 
 export default router;
+
+    
+
